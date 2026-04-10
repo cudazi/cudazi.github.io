@@ -1,0 +1,17 @@
+<div id="bridge-status" style="padding: 20px; font-weight: bold; border-radius: 8px;">
+    Checking Bridge...
+</div>
+
+<script>
+    async function updateBridge() {
+        const response = await fetch('status.json?t=' + Date.now());
+        const data = await response.json();
+        const el = document.getElementById('bridge-status');
+        
+        el.innerText = "THE BRIDGE IS " + data.status;
+        el.style.backgroundColor = data.status === "UP" ? "#ff4c4c" : "#4caf50";
+        el.style.color = "white";
+    }
+    updateBridge();
+    setInterval(updateBridge, 60000); // Refresh UI every minute
+</script>
